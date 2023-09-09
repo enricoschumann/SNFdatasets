@@ -1,0 +1,9 @@
+v0.1.0  (2023-09-09; not yet released)
+
+  o Initial release. The package provides functions for
+    downloading data from the Swiss National Science
+    Foundation (SNF, FNS, SNSF; https://snf.ch).  Downloaded
+    data can optionally be cached, to avoid repeated downloads
+    of the same files.  There are also utilities for comparing
+    different versions of datasets, i.e. to find changes.  The
+    package is lightweight and without dependencies.
