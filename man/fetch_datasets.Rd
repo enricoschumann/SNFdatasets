@@ -1,5 +1,6 @@
 \name{fetch_datasets}
 \alias{fetch_datasets}
+\alias{compare_datasets}
 \alias{SNFdatasets-package}
 \alias{SNFdatasets}
 \title{
@@ -11,6 +12,7 @@ Download Datasets from the Swiss National Science Foundation
 }
 \usage{
 fetch_datasets(dataset, dest.dir = NULL, ...)
+compare_datasets(dataset.old, dataset.new, ...)
 }
 \arguments{
   \item{dataset}{
@@ -19,6 +21,12 @@ fetch_datasets(dataset, dest.dir = NULL, ...)
   \item{dest.dir}{
     a directory; if \code{NULL}, a \code{\link{tempdir}} is used.
 }
+  \item{dataset.old}{
+    string: the filename
+}
+  \item{dataset.new}{
+    string: the filename
+}
   \item{\dots}{
     currently not used
 }
@@ -26,7 +34,7 @@ fetch_datasets(dataset, dest.dir = NULL, ...)
 \details{
 
   Datasets in CSV format are downloaded via \code{\link{download.file}}
-  
+
 }
 \value{
   a \code{\link{data.frame}}
