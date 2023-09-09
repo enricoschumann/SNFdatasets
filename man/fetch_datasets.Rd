@@ -1,47 +1,79 @@
-\name{fetch_datasets}
-\alias{fetch_datasets}
-\alias{compare_datasets}
+\name{SNFdatasets}
 \alias{SNFdatasets-package}
 \alias{SNFdatasets}
+\alias{compare_datasets}
+\alias{fetch_datasets}
 \title{
-Download Datasets from the Swiss National Science Foundation
+  Download Datasets from the Swiss National Science Foundation
 }
 \description{
-  Download datasets from the Swiss National Science Foundation (SNF,
-     FNS, SNSF) in CSV format.
+  Download datasets from the Swiss National Science Foundation
+  (SNF, FNS, SNSF) in CSV format.
 }
 \usage{
 fetch_datasets(dataset, dest.dir = NULL, ...)
 compare_datasets(dataset.old, dataset.new, ...)
 }
 \arguments{
-  \item{dataset}{
-    a character vector
-}
-  \item{dest.dir}{
+  \item{dataset}{%
+    a character vector. When of length greater than one,
+    datasets are only downloaded, but not parsed.  Currently
+    supported are \code{Grant}, \code{GrantWithAbstracts},
+    \code{Person}, \code{OutputdataScientificPublication},
+    \code{OutputdataUseInspired},
+
+    \code{OutputdataPublicCommunication},
+    \code{OutputdataCollaboration},
+
+    \code{OutputdataAcademicEvent}, \code{OutputdataAward},
+    \code{OutputdataDataSet} and
+
+    \code{OutputdataKnowledgeTransferEvent}.
+  }
+  \item{dest.dir}{%
     a directory; if \code{NULL}, a \code{\link{tempdir}} is used.
-}
+  }
   \item{dataset.old}{
     string: the filename
-}
+  }
   \item{dataset.new}{
     string: the filename
-}
+  }
   \item{\dots}{
-    currently not used
-}
+    arguments to be passed to \code{\link{download.file}}
+  }
 }
 \details{
 
-  Datasets in CSV format are downloaded via \code{\link{download.file}}
+  \code{fetch_datasets} downloads datasets in CSV format from
+  the SNF's website and stores them, with a date prefix, in
+  directory \code{dest.dir}.  If the latter is NULL, a
+  temporary directory is used (through \code{\link{tempdir}});
+  but much better is to use a more-permanent storage location.
+  If a file with today's date exists in \code{dest.dir}, that
+  file is read, and nothing is downloaded.
+
+  For downloading, function \code{\link{download.file}} is
+  used.  If it fails, \code{fetch_datasets} returns
+  \code{NULL}.
+
+  \code{compare_datasets} will match old and new dataset via
+  column \code{GrantNumber} and report
+  \itemize{
+    \item added lines (in new, but not in old),
+    \item removed lines (in old, but not in new), and
+    \item changed lines (in old and new, but with differing content).
+  }
 
 }
-\value{
-  a \code{\link{data.frame}}
+\value{%
+  A \code{\link{data.frame}} for \code{fetch_datasets}; and
+  for \code{compare_datasets} a list of three components
+  named \code{added}, \code{removed} and \code{changed}.
 }
-%% \references{
-%% %% ~put references to the literature/web site here ~
-%% }
+\references{
+  \url{https://data.snf.ch/datasets}
+}
 %% \author{
 %% %%  ~~who you are~~
 %% }
@@ -57,10 +89,15 @@ compare_datasets(dataset.old, dataset.new, ...)
 \examples{
 \donttest{
 ## requires internet connection
-library("SNFdatasets")
-data <- "Grant"
+dataset <- "Grant"
 SNF.dir  <- "~/Downloads/SNFdatasets"
-fetch_datasets(dataset = data, dest.dir = SNF.dir)
+data <- fetch_datasets(dataset = dataset, dest.dir = SNF.dir)
+
+## all research institutions
+table(data[["ResearchInstitution"]])
+
+## grants to University of Lucerne
+data[data[["ResearchInstitution"]] == "University of Lucerne - LU", ]
 }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

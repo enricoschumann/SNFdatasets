@@ -2,9 +2,20 @@ fetch_datasets <-
 function(dataset,
          dest.dir = NULL, ...) {
 
-    ds <-  c("Grant",
-             "GrantWithAbstracts",
-             "Person")
+    ds <-  c(
+        "Grant",
+        "GrantWithAbstracts",
+        "Person",
+        "OutputdataScientificPublication",
+        "OutputdataUseInspired",
+        "OutputdataPublicCommunication",
+        "OutputdataCollaboration",
+        "OutputdataAcademicEvent",
+        "OutputdataAward",
+        "OutputdataDataSet",
+        "OutputdataKnowledgeTransferEvent"
+    )
+
 
     m <- match(tolower(dataset), tolower(ds), nomatch = 0)
     if (any(m == 0)) {
@@ -30,7 +41,7 @@ function(dataset,
         f.path <- file.path(normalizePath(dest.dir), f.name)
 
         if (!file.exists(f.path)) {
-            dl.result <- try(download.file(dataset, f.path), silent = TRUE)
+            dl.result <- try(download.file(dataset, f.path, ...), silent = TRUE)
             if (inherits(dl.result, "try-error")) {
                 warning("download failed with message ", sQuote(dl.result, FALSE))
                 return(invisible(NULL))
@@ -43,14 +54,18 @@ function(dataset,
             return(invisible(NULL))
         }
 
-        txt <- read.table(f.path,
-                          header = TRUE,
-                          sep = ";",
-                          quote = '"',
-                          comment.char = "",
-                          ...)
+        if (length(datasets) == 1)
+            res <- read.table(f.path,
+                              header = TRUE,
+                              sep = ";",
+                              quote = '"',
+                              comment.char = "")
     }
-    txt
+
+    if (length(datasets) == 1)
+        res
+    else
+        invisible(NULL)
 }
 
 compare_datasets <-

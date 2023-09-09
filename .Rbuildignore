@@ -12,4 +12,4 @@ pull.sh
 reports
 reports/
 vignettes/auto/
-*~
+~$
