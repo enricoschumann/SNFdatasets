@@ -1,0 +1,8 @@
+2023-09-10  Enrico Schumann  <es@enricoschumann.net>
+
+        * R/functions.R (compare_datasets): return list
+        of changes
+
+2023-09-09  Enrico Schumann  <es@enricoschumann.net>
+
+        * R/functions.R: initial version

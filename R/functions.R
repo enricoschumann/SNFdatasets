@@ -32,6 +32,7 @@ function(dataset,
         dir.create(dest.dir, recursive = TRUE)
     }
 
+    date.rx <- "^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]T[0-9][0-9]:[0-9][0-9]:[0-9][0-9]Z$"
     datasets <- dataset
     for (dataset in datasets) {
 
@@ -54,12 +55,21 @@ function(dataset,
             return(invisible(NULL))
         }
 
-        if (length(datasets) == 1)
+        if (length(datasets) == 1) {
             res <- read.table(f.path,
                               header = TRUE,
                               sep = ";",
                               quote = '"',
                               comment.char = "")
+
+            date <- which(
+                apply(res, 2, function(x)
+                    all(grepl(date.rx, x, perl = TRUE))))
+            for (d in date) {
+                res[[d]] <- as.Date(res[[d]])
+            }
+
+        }
     }
 
     if (length(datasets) == 1)
@@ -86,8 +96,26 @@ function(dataset.old,
                       comment.char = "",
                       ...)
 
+    on <- match(new$GrantNumber, old$GrantNumber, nomatch = 0)
+    key.new <- apply(new[on > 0, ], 1,
+                     function(x) paste(x, collapse = "--"))
+    key.old <- apply(old[on, ], 1,
+                     function(x) paste(x, collapse = "--"))
+
+    changes <- which(key.new != key.old)
+
+    ans.changes <- list()
+    for (ch in changes) {
+        gn <- new[on > 0, ][ch, "GrantNumber"]
+        ch.col <- colnames(new)[new[on > 0, ][ch, ] != old[on, ][ch, ]]
+        o.n <- cbind(old = t(old[on, ][ch, ch.col]),
+                     new = t(new[on > 0, ][ch, ch.col]))
+        row.names(o.n) <- ch.col
+        ans.changes[[as.character(gn)]] <- o.n
+    }
+
     ans <- list(added   = new[!new$GrantNumber %in% old$GrantNumber, ],
                 removed = old[!old$GrantNumber %in% new$GrantNumber, ],
-                changed = list(NA))
+                changed = ans.changes)
     ans
 }

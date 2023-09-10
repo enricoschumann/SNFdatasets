@@ -3,7 +3,7 @@ Type: Package
 Title: Download Datasets from the Swiss National Science
      Foundation (SNF, FNS, SNSF)
 Version: 0.1.0
-Date: 2023-09-09
+Date: 2023-09-10
 Authors@R: c(person(given = "Silvia", family = "Martens",
                     role  = c("aut"),
                     email = "sm@silviamartens.net",
@@ -12,13 +12,13 @@ Authors@R: c(person(given = "Silvia", family = "Martens",
                     role  = c("aut", "cre"),
                     email = "es@enricoschumann.net",
                     comment = c(ORCID = "0000-0001-7601-6576")))
-Description: Functions for downloading data from the Swiss
+Description: Download and read datasets from the Swiss
      National Science Foundation (SNF, FNS, SNSF;
      <https://snf.ch>).  The package is lightweight and
-     without dependencies.  Downloaded data can optionally be
-     cached, to avoid repeated downloads of the same files.
-     There are also utilities for comparing different versions
-     of datasets, i.e. to find changes.
+     without dependencies.  Downloaded data can optionally
+     be cached, to avoid repeated downloads of the same
+     files.  There are also utilities for comparing
+     different versions of datasets, i.e. to find changes.
 License: GPL-3
 URL: http://enricoschumann.net/R/packages/SNFdatasets/ ,
      https://git.sr.ht/~enricoschumann/SNFdatasets ,

@@ -98,6 +98,9 @@ table(data[["ResearchInstitution"]])
 
 ## grants to University of Lucerne
 data[data[["ResearchInstitution"]] == "University of Lucerne - LU", ]
+
+## keywords
+sort(unique(unlist(strsplit(g$Keywords, " *; *"))))
 }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
