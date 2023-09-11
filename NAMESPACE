@@ -1,5 +1,6 @@
 importFrom("utils", "askYesNo", "download.file", "read.table")
 export(
+    "read_dataset",
     "fetch_datasets",
     "compare_datasets"
 )

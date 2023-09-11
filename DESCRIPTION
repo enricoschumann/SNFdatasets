@@ -3,7 +3,7 @@ Type: Package
 Title: Download Datasets from the Swiss National Science
      Foundation (SNF, FNS, SNSF)
 Version: 0.1.0
-Date: 2023-09-10
+Date: 2023-09-11
 Authors@R: c(person(given = "Silvia", family = "Martens",
                     role  = c("aut"),
                     email = "sm@silviamartens.net",

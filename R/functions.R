@@ -1,6 +1,7 @@
 fetch_datasets <-
 function(dataset,
-         dest.dir = NULL, ...) {
+         dest.dir = NULL,
+         detect.dates = TRUE, ...) {
 
     ds <-  c(
         "Grant",
@@ -32,7 +33,9 @@ function(dataset,
         dir.create(dest.dir, recursive = TRUE)
     }
 
-    date.rx <- "^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]T[0-9][0-9]:[0-9][0-9]:[0-9][0-9]Z$"
+    if (is.null(dest.dir))
+        dest.dir <- tempdir(TRUE)
+
     datasets <- dataset
     for (dataset in datasets) {
 
@@ -56,19 +59,7 @@ function(dataset,
         }
 
         if (length(datasets) == 1) {
-            res <- read.table(f.path,
-                              header = TRUE,
-                              sep = ";",
-                              quote = '"',
-                              comment.char = "")
-
-            date <- which(
-                apply(res, 2, function(x)
-                    all(grepl(date.rx, x, perl = TRUE))))
-            for (d in date) {
-                res[[d]] <- as.Date(res[[d]])
-            }
-
+            res <- read_dataset(f.path, detect.dates = detect.dates)
         }
     }
 
@@ -105,12 +96,15 @@ function(dataset.old,
     changes <- which(key.new != key.old)
 
     ans.changes <- list()
+    new. <- new[on > 0, ]
+    old. <- old[on, ]
     for (ch in changes) {
-        gn <- new[on > 0, ][ch, "GrantNumber"]
-        ch.col <- colnames(new)[new[on > 0, ][ch, ] != old[on, ][ch, ]]
-        o.n <- cbind(old = t(old[on, ][ch, ch.col]),
-                     new = t(new[on > 0, ][ch, ch.col]))
+        gn <- new.[ch, "GrantNumber"]
+        ch.col <- colnames(new)[new.[ch, ] != old.[ch, ]]
+        o.n <- cbind(old = t(old.[ch, ch.col]),
+                     new = t(new.[ch, ch.col]))
         row.names(o.n) <- ch.col
+        colnames (o.n) <- c("old", "new")
         ans.changes[[as.character(gn)]] <- o.n
     }
 
@@ -118,4 +112,27 @@ function(dataset.old,
                 removed = old[!old$GrantNumber %in% new$GrantNumber, ],
                 changed = ans.changes)
     ans
+}
+
+read_dataset <- function(filename,
+                         detect.dates = TRUE,
+                         ...) {
+
+    date.rx <- "^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]T[0-9][0-9]:[0-9][0-9]:[0-9][0-9]Z$"
+
+    res <- read.table(filename,
+                      header = TRUE,
+                      sep = ";",
+                      quote = '"',
+                      comment.char = "")
+
+    if (detect.dates) {
+        date <- which(
+            apply(res, 2, function(x)
+                all(grepl(date.rx, x, perl = TRUE))))
+        for (d in date) {
+            res[[d]] <- as.Date(res[[d]])
+        }
+    }
+    res
 }
