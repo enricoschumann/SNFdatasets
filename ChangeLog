@@ -1,8 +1,13 @@
+2023-09-13  Enrico Schumann  <es@enricoschumann.net>
+
+        * R/functions.R (compare_datasets): new argument
+        "match.column"
+
 2023-09-11  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/functions.R (fetch_datasets): new argument
-	'detect.dates'
-	(read_dataset): new function
+        * R/functions.R (fetch_datasets): new argument
+        'detect.dates'
+        (read_dataset): new function
 
 2023-09-10  Enrico Schumann  <es@enricoschumann.net>
 

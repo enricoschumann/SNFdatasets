@@ -71,7 +71,9 @@ function(dataset,
 
 compare_datasets <-
 function(dataset.old,
-         dataset.new, ...) {
+         dataset.new,
+         match.column = "GrantNumber",
+         ...) {
 
     old <- read.table(dataset.old,
                       header = TRUE,
@@ -87,7 +89,9 @@ function(dataset.old,
                       comment.char = "",
                       ...)
 
-    on <- match(new$GrantNumber, old$GrantNumber, nomatch = 0)
+    on <- match(new[[match.column]],
+                old[[match.column]],
+                nomatch = 0)
     key.new <- apply(new[on > 0, ], 1,
                      function(x) paste(x, collapse = "--"))
     key.old <- apply(old[on, ], 1,
@@ -99,8 +103,10 @@ function(dataset.old,
     new. <- new[on > 0, ]
     old. <- old[on, ]
     for (ch in changes) {
-        gn <- new.[ch, "GrantNumber"]
-        ch.col <- colnames(new)[new.[ch, ] != old.[ch, ]]
+        gn <- new.[ch, match.column]
+        same <- (is.na(new.[ch, ])  &  is.na(old.[ch, ])) |
+                 new.[ch, ] == old.[ch, ]
+        ch.col <- colnames(new)[!same]
         o.n <- cbind(old = t(old.[ch, ch.col]),
                      new = t(new.[ch, ch.col]))
         row.names(o.n) <- ch.col
@@ -108,10 +114,9 @@ function(dataset.old,
         ans.changes[[as.character(gn)]] <- o.n
     }
 
-    ans <- list(added   = new[!new$GrantNumber %in% old$GrantNumber, ],
-                removed = old[!old$GrantNumber %in% new$GrantNumber, ],
-                changed = ans.changes)
-    ans
+    list(added   = new[!new[[match.column]] %in% old[[match.column]], ],
+         removed = old[!old[[match.column]] %in% new[[match.column]], ],
+         changed = ans.changes)
 }
 
 read_dataset <- function(filename,

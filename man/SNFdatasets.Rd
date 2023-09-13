@@ -13,7 +13,8 @@
 }
 \usage{
 fetch_datasets(dataset, dest.dir = NULL, detect.dates = TRUE, ...)
-compare_datasets(dataset.old, dataset.new, ...)
+compare_datasets(dataset.old, dataset.new,
+                 match.column = "GrantNumber", ...)
 
 read_dataset(filename, detect.dates = TRUE, ...)
 }
@@ -48,6 +49,10 @@ read_dataset(filename, detect.dates = TRUE, ...)
   }
   \item{filename}{
     string: the filename
+  }
+  \item{match.column}{
+    string: the name of the column to use for matching
+    entries in old and new file
   }
   \item{\dots}{
     arguments to be passed to \code{\link{download.file}}
@@ -91,13 +96,10 @@ read_dataset(filename, detect.dates = TRUE, ...)
 \author{
   Silvia Martens and Enrico Schumann
 }
-%% \note{
-%% %%  ~~further notes~~
-%% }
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-%% \seealso{
-%% %% ~~objects to See Also as \code{\link{help}}, ~~~
-%% }
+\seealso{%
+  \code{\link{download.file}}; \code{\link{options}}
+  (\code{timeout}, in particular)
+}
 \examples{
 \donttest{
 ## requires internet connection, and file may be large
