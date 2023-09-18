@@ -1,4 +1,4 @@
-Package: SNFdatasets
+Package: SNSFdatasets
 Type: Package
 Title: Download Datasets from the Swiss National Science
      Foundation (SNF, FNS, SNSF)
@@ -20,8 +20,8 @@ Description: Download and read datasets from the Swiss
      files.  There are also utilities for comparing
      different versions of datasets, i.e. to find changes.
 License: GPL-3
-URL: http://enricoschumann.net/R/packages/SNFdatasets/ ,
-     https://git.sr.ht/~enricoschumann/SNFdatasets ,
-     https://github.com/enricoschumann/SNFdatasets
+URL: http://enricoschumann.net/R/packages/SNSFdatasets/ ,
+     https://git.sr.ht/~enricoschumann/SNSFdatasets ,
+     https://github.com/enricoschumann/SNSFdatasets
 LazyLoad: yes
 ByteCompile: yes

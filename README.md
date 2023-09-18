@@ -1,4 +1,4 @@
-# SNFdatasets
+# SNSFdatasets
 
 Functions for downloading data from the [Swiss National
 Science Foundation](https://snf.ch) (SNF, FNS, SNSF).
@@ -12,7 +12,7 @@ i.e. to find changes.
 
 To install the package from a running R session, type:
 
-    install.packages('SNFdatasets',
+    install.packages('SNSFdatasets',
                      repos = c('http://enricoschumann.net/R',
                                getOption('repos')))
 

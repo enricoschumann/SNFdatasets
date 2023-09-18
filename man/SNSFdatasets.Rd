@@ -1,6 +1,6 @@
-\name{SNFdatasets}
-\alias{SNFdatasets-package}
-\alias{SNFdatasets}
+\name{SNSFdatasets}
+\alias{SNSFdatasets-package}
+\alias{SNSFdatasets}
 \alias{compare_datasets}
 \alias{fetch_datasets}
 \alias{read_dataset}
@@ -61,7 +61,7 @@ read_dataset(filename, detect.dates = TRUE, ...)
 \details{
 
   \code{fetch_datasets} downloads datasets in CSV format from
-  the SNF's website and stores them, with a date prefix, in
+  the SNSF's website and stores them, with a date prefix, in
   directory \code{dest.dir}.  If the latter is NULL, a
   temporary directory is used (through \code{\link{tempdir}});
   but much better is to use a more-persistant storage location.
@@ -105,12 +105,12 @@ read_dataset(filename, detect.dates = TRUE, ...)
 ## requires internet connection, and file may be large
 dataset <- "Grant"
 
-SNF.dir  <- tempdir()  ## this is just an example.
+SNSF.dir  <- tempdir()  ## this is just an example.
                        ## In practice it's much more useful to
                        ## store files in a persistant location,
-                       ## such as '~/Downloads/SNFdatasets'.
+                       ## such as '~/Downloads/SNSFdatasets'.
 
-data <- fetch_datasets(dataset = dataset, dest.dir = SNF.dir)
+data <- fetch_datasets(dataset = dataset, dest.dir = SNSF.dir)
 
 ## all research institutions
 table(data[["ResearchInstitution"]])
