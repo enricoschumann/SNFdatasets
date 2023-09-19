@@ -41,20 +41,20 @@ read_dataset(filename, detect.dates = TRUE, ...)
     logical: if \code{TRUE}, columns consisting of entries such as
     \code{2000-10-31T00:00:00Z} are converted to \code{\link{Date}}
   }
-  \item{dataset.old}{
+  \item{dataset.old}{%
     string: the filename
   }
-  \item{dataset.new}{
+  \item{dataset.new}{%
     string: the filename
   }
-  \item{filename}{
+  \item{filename}{%
     string: the filename
   }
-  \item{match.column}{
+  \item{match.column}{%
     string: the name of the column to use for matching
     entries in old and new file
   }
-  \item{\dots}{
+  \item{\dots}{%
     arguments to be passed to \code{\link{download.file}}
   }
 }
@@ -67,13 +67,14 @@ read_dataset(filename, detect.dates = TRUE, ...)
   but much better is to use a more-persistant storage location.
   If a file with today's date exists in \code{dest.dir}, that
   file is read, and nothing is downloaded.  If more than one
-  \code{dataset} is specified, those files are downloaded but
-  not read.
+  \code{dataset} is specified, those files are downloaded (if
+  not current in \code{dest.dir}) but not read.
 
   For downloading, function \code{\link{download.file}} is
   used.  If it fails, \code{fetch_datasets} returns
-  \code{NULL}.  Settings can be passed via \dots .
-
+  \code{NULL}.  Settings can be passed via \dots .  See
+  \code{\link{download.file}} for options; in particular, see
+  the hints about \code{timeout}.
 
   \code{compare_datasets} will match old and new \code{dataset} via
   column \code{GrantNumber} and report
