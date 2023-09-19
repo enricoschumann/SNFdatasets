@@ -1,3 +1,7 @@
+2023-09-18  Enrico Schumann  <es@enricoschumann.net>
+
+        * rename package to "SNSFdatasets"
+
 2023-09-13  Enrico Schumann  <es@enricoschumann.net>
 
         * R/functions.R (compare_datasets): new argument
