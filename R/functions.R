@@ -3,7 +3,7 @@ function(dataset,
          dest.dir = NULL,
          detect.dates = TRUE, ...) {
 
-    ds <-  c(
+    ds <- c(
         "Grant",
         "GrantWithAbstracts",
         "Person",
@@ -20,7 +20,10 @@ function(dataset,
 
     m <- match(tolower(dataset), tolower(ds), nomatch = 0)
     if (any(m == 0)) {
-        message("unknown dataset ", dataset[m == 0])
+        unk <- dataset[m == 0]
+        warning("unknown dataset",
+                if (length(unk > 1L)) "s",
+                ": ", paste(unk, collapse = ", "))
     }
     dataset <- ds[m]
 
@@ -69,24 +72,28 @@ function(dataset,
         invisible(NULL)
 }
 
+
+
 compare_datasets <-
-function(dataset.old,
-         dataset.new,
+function(filename.old,
+         filename.new,
          match.column = "GrantNumber",
          ...) {
 
-    old <- read.table(dataset.old,
+    old <- read.table(filename.old,
                       header = TRUE,
                       sep = ";",
                       quote = '"',
                       comment.char = "",
+                      as.is = TRUE,
                       ...)
 
-    new <- read.table(dataset.new,
+    new <- read.table(filename.new,
                       header = TRUE,
                       sep = ";",
                       quote = '"',
                       comment.char = "",
+                      as.is = TRUE,
                       ...)
 
     on <- match(new[[match.column]],
@@ -119,11 +126,18 @@ function(dataset.old,
          changed = ans.changes)
 }
 
+
+
 read_dataset <- function(filename,
                          detect.dates = TRUE,
                          ...) {
 
-    date.rx <- "^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]T[0-9][0-9]:[0-9][0-9]:[0-9][0-9]Z$"
+    if (is.logical(detect.dates)) {
+        date.rx <- "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    } else if (is.character(detect.dates)) {
+        date.rx <- detect.dates
+        detect.dates <- TRUE
+    }
 
     res <- read.table(filename,
                       header = TRUE,

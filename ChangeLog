@@ -1,3 +1,8 @@
+2023-09-22  Enrico Schumann  <es@enricoschumann.net>
+
+	* R/functions.R (fetch_datasets): add more-informative
+	warning
+
 2023-09-18  Enrico Schumann  <es@enricoschumann.net>
 
         * rename package to "SNSFdatasets"
