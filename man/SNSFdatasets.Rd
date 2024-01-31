@@ -28,25 +28,27 @@ read_dataset(filename, detect.dates = TRUE, ...)
     datasets are only downloaded, but not read.  Currently
     supported are:
       \itemize{
-	\item{\code{Grant}}
-	\item{\code{GrantWithAbstracts}}
-	\item{\code{Person}}
-	\item{\code{OutputdataScientificPublication}}
-	\item{\code{OutputdataUseInspired}}
-	\item{\code{OutputdataPublicCommunication}}
-	\item{\code{OutputdataCollaboration}}
-	\item{\code{OutputdataAcademicEvent}}
-	\item{\code{OutputdataAward}}
-	\item{\code{OutputdataDataSet}}
-	\item{\code{OutputdataKnowledgeTransferEvent}}
+        \item{\code{Grant}}
+        \item{\code{GrantWithAbstracts}}
+        \item{\code{Person}}
+        \item{\code{OutputdataScientificPublication}}
+        \item{\code{OutputdataUseInspired}}
+        \item{\code{OutputdataPublicCommunication}}
+        \item{\code{OutputdataCollaboration}}
+        \item{\code{OutputdataAcademicEvent}}
+        \item{\code{OutputdataAward}}
+        \item{\code{OutputdataDataSet}}
+        \item{\code{OutputdataKnowledgeTransferEvent}}
       }
   }
   \item{dest.dir}{%
     a directory; if \code{NULL}, a \code{\link{tempdir}} is used
   }
   \item{detect.dates}{%
-    logical: if \code{TRUE}, columns consisting of entries such as
-    \code{2000-10-31T00:00:00Z} are converted to \code{\link{Date}}
+    logical: if \code{TRUE}, columns consisting of entries
+    such as \code{2000-10-31T00:00:00Z} are converted to
+    \code{\link{Date}}; empty rows in such columns are ignored
+    and become \code{\link{NA}}
   }
   \item{filename.old}{%
     string: the filename

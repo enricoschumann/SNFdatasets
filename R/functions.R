@@ -148,7 +148,7 @@ read_dataset <- function(filename,
     if (detect.dates) {
         date <- which(
             apply(res, 2, function(x)
-                all(grepl(date.rx, x, perl = TRUE))))
+                all(grepl(date.rx, x[x != ""], perl = TRUE))))
         for (d in date) {
             res[[d]] <- as.Date(res[[d]])
         }

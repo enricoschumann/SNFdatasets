@@ -1,3 +1,8 @@
+v0.1.1  (2024-01-31)
+
+  o read_dataset: 'detect.dates' ignores empty rows in
+    date columns, whose value becomes NA
+
 v0.1.0  (2023-09-22)
 
   o Initial release. The package provides functions for

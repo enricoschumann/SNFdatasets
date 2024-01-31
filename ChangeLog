@@ -1,7 +1,17 @@
+2024-01-31  Enrico Schumann  <es@enricoschumann.net>
+
+        * DESCRIPTION (Version): 0.1.1
+
+        * R/functions.R (read_dataset): 'detect.dates'
+        ignores empty rows in date columns, whose value
+        becomes NA
+
 2023-09-22  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/functions.R (fetch_datasets): add more-informative
-	warning
+        * DESCRIPTION (Version): 0.1.0
+
+        * R/functions.R (fetch_datasets): add
+        more-informative warning
 
 2023-09-18  Enrico Schumann  <es@enricoschumann.net>
 
